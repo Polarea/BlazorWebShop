@@ -1,0 +1,74 @@
+﻿@page "/orderconfirmation/{orderId}"
+@inject IBlazorWebShopRepository repository
+
+<PageTitle>Order Confirmation</PageTitle>
+<div class="container mt-5">
+	<div class="h3 fw-bold">Order Confirmation</div>
+	<div class="row row-cols-2">
+
+		<div class="col bg-light p-5">
+			<div class="h5 bg-light fw-bold mt-2">Order (Id: @orderId) will be dilvered to:</div>
+			<table class="table table-borderless table-hover table-striped table-responsive mt-5 border border-white border-5">
+				<thead>
+					<tr>
+						<th colspan="2" class="h5 fw-bold">customer (Id: @customerId)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th class="col-sm-3">Name:</th>
+						<td>@customer?.FirstName @customer?.LastName</td>
+					</tr>
+					<tr>
+
+						<th>E-mail:</th>
+						<td>@customer?.Email</td>
+					</tr>
+					<tr>
+						<th rowspan="3">Address:</th>
+						<td>
+							@customer?.Address?.StreetName @customer?.Address?.ResidenceNumber
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							@customer?.Address?.City @customer?.Address?.PostalCode
+						</td>
+					</tr>
+					<tr>
+						<td>
+							@customer?.Address?.Country
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<CartItems Title="Order Details" _CartItems="cartItems" />
+	</div>
+</div>
+
+@code {
+
+	[Parameter]
+	public string orderId { get; set; } = string.Empty;
+
+	Order order = new();
+	int customerId = 0;
+	Customer? customer = new();
+	List<CartItem> cartItems = [];
+
+	async Task GetOrderAsync()
+	{
+		var _orderId = int.Parse(orderId);
+		order = await repository.GetOrderAsync(_orderId);
+		cartItems = order.CartItems;
+		customerId = order.CustomerId;
+		customer = repository.GetCustomer(customerId);
+	}
+
+	protected async override Task OnInitializedAsync()
+	{
+		await GetOrderAsync();
+	}
+}
