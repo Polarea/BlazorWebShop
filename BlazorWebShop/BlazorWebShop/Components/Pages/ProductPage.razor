@@ -1,0 +1,61 @@
+﻿@page "/productpage/{id}"
+@rendermode InteractiveServer
+@inject IBlazorWebShopRepository repository
+@inject SharedService shared
+
+<div class="container">
+
+	<h1 class="mb-5 fw-bold">@product.Name</h1>
+
+	<div class="row row-cols-2">
+		<div class="col">
+			<img src="@product.ImageUrl" class="w-75 rounded-3" alt="@product.Name">
+		</div>
+
+		<div class="col">
+			<table class="table table-hover table-borderless table-striped w-50">
+				<thead></thead>
+				<tbody>
+					<tr>
+						<td>Product Id:</td>
+						<td>@product.Id</td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>@product.Price</td>
+					</tr>
+					<tr>
+						<td>Description:</td>
+						<td>@product.Description</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="mb-5 bg-dark rounded-bottom p-1 w-50">
+				<BuyButton @rendermode=InteractiveServer ProductId="product.Id" ShoppingCartId="shoppingCartId" />
+			</div>
+
+		</div>
+	</div>
+</div>
+
+@code {
+
+	[Parameter]
+	public string Id { get; set; } = string.Empty;
+
+	private Product product = new();
+	private int shoppingCartId = 0;
+
+	public async Task GetProductAsync()
+	{
+		var id = int.Parse(Id);
+		product = await repository.GetEntityAsync<Product>(p => p.Id == id);
+		shoppingCartId = shared.ShoppingCart.Id;
+	}
+
+	protected async override Task OnInitializedAsync()
+	{
+		await GetProductAsync();
+	}
+}
