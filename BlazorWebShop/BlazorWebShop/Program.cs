@@ -1,8 +1,9 @@
+using BlazorWebShop.Client;
 using BlazorWebShop.Components;
 using BlazorWebShop.Components.Account;
 using BlazorWebShop.Data;
 using BlazorWebShop.Data.Interfaces;
-using BlazorWebShop.Data.SharedServices;
+using BlazorWebShop.SharedServices;
 using BlazorWebShop.DbContexts;
 using BlazorWebShop.Repositories;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<IBlazorWebShopRepository, BlazorWebShopRepository>();
 builder.Services.AddScoped<SharedService>();
+builder.Services.AddScoped<SharedProperties>();
 builder.Services.AddAuthentication(options =>
 	{
 		options.DefaultScheme = IdentityConstants.ApplicationScheme;

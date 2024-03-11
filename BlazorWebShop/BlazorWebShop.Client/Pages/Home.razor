@@ -1,0 +1,24 @@
+﻿@inject SharedProperties shared
+@rendermode InteractiveAuto
+
+<PageTitle>Home</PageTitle>
+<div class="container">
+	<h1 class="mb-5 fw-bold">Products</h1>
+	<div class = "row row-cols-3">
+	@foreach (var product in shared.Products ?? new())
+	{
+		<div class = "col" style="width: 20rem">
+				<div style="width:100%">
+					<ProductCard @rendermode="InteractiveAuto" Product="product" ShoppingCartId="shared.ShoppingCartId" />
+				</div>
+				<div class="mb-5 bg-dark rounded-bottom p-1">
+					<BuyButton @rendermode="InteractiveAuto" ProductId="product.Id" ShoppingCartId="shared.ShoppingCartId" />
+				</div>
+			</div>
+	}
+	</div>
+</div>
+
+@code{
+
+}

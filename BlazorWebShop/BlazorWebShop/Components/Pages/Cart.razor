@@ -12,36 +12,36 @@
 		<div class="col bg-light p-5 rounded-3">
 			<EditForm class="row g-3 border border-white border-5" Model="customer" OnValidSubmit="CreateOrderAsync">
 				<div class="col-md-6">
-					<InputText @bind-Value="customer.FirstName" placeholder="First Name" class="form-control" />
+					<input type="text" name="firstname" id="firstname" @bind="customer.FirstName" placeholder="First Name" class="form-control" />
 				</div>
 				<div class="col-md-6">
-					<InputText @bind-Value="customer.LastName" placeholder="Last Name" class="form-control" />
+					<input type="text" name="lastname" id="lastname" @bind="customer.LastName" placeholder="Last Name" class="form-control" />
 				</div>
 				<div class="col-md-12">
-					<input type="email" @bind="customer.Email" placeholder="E-mail" class="form-control" />
+					<input type="email" name="email" id="email" @bind="customer.Email" placeholder="E-mail" class="form-control" />
 				</div>
 				<div class="col-md-8">
-					<InputText @bind-Value="customer.Address.StreetName" placeholder="Street Name" class="form-control" />
+					<input type="text" name="street" id="street" @bind="customer.Address.StreetName" placeholder="Street Name" class="form-control" />
 				</div>
 				<div class="col-md-2">
-					<label for="@customer.Address.ResidenceNumber" class="form-label text-black-50 float-end">Residenc Number:</label>
+					<label for="residence" id="labelresidence" class="form-label text-black-50 float-end">Residenc Number:</label>
 				</div>
 				<div class="col-md-2">
-					<input type="number" @bind="customer.Address.ResidenceNumber" class="form-control" min="1" />
+					<input name="residence" id="residence" type="number" @bind="customer.Address.ResidenceNumber" class="form-control" min="1" />
 				</div>
 				<div class="col-md-4">
-					<InputText @bind-Value="customer.Address.City" placeholder="City" class="form-control" />
+					<input type="text" name="city" id="city" @bind="customer.Address.City" placeholder="City" class="form-control" />
 				</div>
 				<div class="col-md-2">
-					<label for="@customer.Address.PostalCode" class="form-label text-black-50 float-end">Postal code:</label>
+					<label for="postalcode" id="labelpostalcode" class="form-label text-black-50 float-end">Postal code:</label>
 				</div>
 				<div class="col-md-2">
-					<input type="number" @bind="customer.Address.PostalCode" class="form-control" min="1" />
+					<input name="postalcode" id="postalcode" type="number" @bind="customer.Address.PostalCode" class="form-control" min="1" />
 				</div>
 				<div class="col-md-4">
-					<InputText @bind-Value="customer.Address.Country" placeholder="Country" class="form-control" />
+					<input type="text" name="country" id="country" @bind="customer.Address.Country" placeholder="Country" class="form-control" />
 				</div><div class="col-md-4">
-					<button class="btn btn-primary" type="submit">Order</button>
+					<button name="customerbutton" class="btn btn-primary" type="submit">Order</button>
 				</div>
 			</EditForm>
 		</div>
@@ -69,5 +69,9 @@
 	{
 		cartItems = shared.ShoppingCart.CartItems;
 		shoppingCart = shared.ShoppingCart;
+	}
+	protected override bool ShouldRender()
+	{
+		return false;
 	}
 }
