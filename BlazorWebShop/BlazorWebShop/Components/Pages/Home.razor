@@ -1,0 +1,29 @@
+﻿@page "/"
+@inject SharedService shared
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+<div class="container">
+	<h1 class="mb-5 fw-bold">Products</h1>
+	<div class = "row row-cols-3">
+	@foreach (var product in shared.Products)
+	{
+		<div class = "col" style="width: 20rem">
+				<div style="width:100%">
+					<ProductCard @rendermode="InteractiveServer" Product="product" ShoppingCartId="shared.ShoppingCart.Id" />
+				</div>
+				<div class="mb-5 bg-dark rounded-bottom p-1">
+					<BuyButton @rendermode="InteractiveServer" ProductId="product.Id" ShoppingCartId="shared.ShoppingCart.Id" />
+				</div>
+			</div>
+	}
+	</div>
+</div>
+
+@code{
+
+	protected async override Task OnInitializedAsync()
+	{
+		await shared.GetShoppingCartAndProductsAsync();
+	}
+}

@@ -1,0 +1,73 @@
+﻿@page "/shoppingcart"
+@rendermode InteractiveServer
+@inject SharedService shared
+@inject IBlazorWebShopRepository repository
+@inject NavigationManager navigation
+
+<PageTitle>Shopping Cart</PageTitle>
+<div class="container mt-5">
+	<div class="row row-cols-2">
+		<CartItems Title="Shopping Cart" _CartItems="cartItems" />
+
+		<div class="col bg-light p-5 rounded-3">
+			<EditForm class="row g-3 border border-white border-5" Model="customer" OnValidSubmit="CreateOrderAsync">
+				<div class="col-md-6">
+					<InputText @bind-Value="customer.FirstName" placeholder="First Name" class="form-control" />
+				</div>
+				<div class="col-md-6">
+					<InputText @bind-Value="customer.LastName" placeholder="Last Name" class="form-control" />
+				</div>
+				<div class="col-md-12">
+					<input type="email" @bind="customer.Email" placeholder="E-mail" class="form-control" />
+				</div>
+				<div class="col-md-8">
+					<InputText @bind-Value="customer.Address.StreetName" placeholder="Street Name" class="form-control" />
+				</div>
+				<div class="col-md-2">
+					<label for="@customer.Address.ResidenceNumber" class="form-label text-black-50 float-end">Residenc Number:</label>
+				</div>
+				<div class="col-md-2">
+					<input type="number" @bind="customer.Address.ResidenceNumber" class="form-control" min="1" />
+				</div>
+				<div class="col-md-4">
+					<InputText @bind-Value="customer.Address.City" placeholder="City" class="form-control" />
+				</div>
+				<div class="col-md-2">
+					<label for="@customer.Address.PostalCode" class="form-label text-black-50 float-end">Postal code:</label>
+				</div>
+				<div class="col-md-2">
+					<input type="number" @bind="customer.Address.PostalCode" class="form-control" min="1" />
+				</div>
+				<div class="col-md-4">
+					<InputText @bind-Value="customer.Address.Country" placeholder="Country" class="form-control" />
+				</div><div class="col-md-4">
+					<button class="btn btn-primary" type="submit">Order</button>
+				</div>
+			</EditForm>
+		</div>
+	</div>
+</div>
+
+@code
+{
+	Customer customer = new() { Address = new Address() };
+	List<CartItem> cartItems = new();
+	int _orderId = 0;
+	ShoppingCart shoppingCart = new();
+
+	async Task CreateOrderAsync()
+	{
+		var customerId = await repository.AddEntityAsync<Customer>(customer);
+		Order order = new() { CustomerId = customerId, CartItems = cartItems };
+		_orderId = await repository.AddEntityAsync<Order>(order);
+		await repository.DeletEntityAsync<ShoppingCart>(shoppingCart);
+		var orderId = Uri.UnescapeDataString(_orderId.ToString());
+		navigation.NavigateTo($"/orderConfirmation/{orderId}");
+	}
+
+	protected override void OnInitialized()
+	{
+		cartItems = shared.ShoppingCart.CartItems;
+		shoppingCart = shared.ShoppingCart;
+	}
+}

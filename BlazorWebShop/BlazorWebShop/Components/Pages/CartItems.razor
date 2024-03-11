@@ -1,0 +1,46 @@
+﻿<div class="col bg-light p-5 rounded-3">
+	<div class="col-md-6">
+		<h4 class="mb-5 fw-bold">@Title</h4>
+	</div>
+	<table class="table table-striped table-hover table-borderless border border-white border-5">
+		<thead class="fw-bold">
+			<tr>
+				<td>Product name</td>
+				<td>Price</td>
+				<td>Quantity</td>
+				<td>Total price</td>
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var cartItem in _CartItems)
+			{
+				totalPrice = cartItem.Quantity * cartItem.Product.Price;
+				grandTotal += totalPrice;
+
+				<tr>
+					<td>@cartItem.Product.Name</td>
+					<td>@cartItem.Product.Price</td>
+					<td>@cartItem.Quantity</td>
+					<td>@totalPrice</td>
+				</tr>
+			}
+			<tr class="fw-bold h5">
+				<td colspan="3" class="text-end">Grand total:</td>
+				<td>@grandTotal</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+@code {
+
+	int totalPrice = 0;
+	int grandTotal = 0;
+
+	[Parameter]
+	public List<CartItem> _CartItems { get; set; } = new();
+
+	[Parameter]
+	public string Title { get; set; }
+}
