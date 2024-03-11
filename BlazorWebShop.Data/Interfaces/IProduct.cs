@@ -2,12 +2,12 @@
 {
 	public interface IProduct
 	{
-		public int Id { get; set; }
-		public int Quantity { get; set; }
-		public string? Name { get; set; }
-		public string? Description { get; set; }
-		public string? ImageUrl { get; set; }
-		public int Price { get; set; }
+		int Id { get; set; }
+		int Quantity { get; set; }
+		string Name { get; set; }
+		string Description { get; set; }
+		string ImageUrl { get; set; }
+        int Price { get; set; }
 
 	}
 }

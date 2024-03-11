@@ -39,8 +39,8 @@
 	int grandTotal = 0;
 
 	[Parameter]
-	public List<CartItem> _CartItems { get; set; } = new();
+	public List<CartItem> _CartItems { get; set; } = [];
 
 	[Parameter]
-	public string Title { get; set; }
+	public string Title { get; set; } = string.Empty;
 }

@@ -3,10 +3,10 @@
 	public interface IAddress
 	{
 		int Id { get; }
-		string? StreetName { get; set; }
+		string StreetName { get; set; }
 		int ResidenceNumber { get; set; }
-		string? City { get; set; }
+		string City { get; set; }
 		int PostalCode { get; set; }
-		string? Country { get; set; }
+		string Country { get; set; }
 	}
 }

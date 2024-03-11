@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace BlazorWebShop.Repositories
 {
-	public class BlazorWebShopRepository : IBlazorWebShopRepository
+    public class BlazorWebShopRepository : IBlazorWebShopRepository
 	{
 		private readonly BlazorWebShopContext _context;
 
@@ -41,7 +41,7 @@ namespace BlazorWebShop.Repositories
 			}
 		}
 
-		public async Task<Order> GetOrderAsync(int orderId)
+		public async Task<Order?> GetOrderAsync(int orderId)
 		{
 			var order = await _context.Orders
 			.Include(cart => cart.CartItems)

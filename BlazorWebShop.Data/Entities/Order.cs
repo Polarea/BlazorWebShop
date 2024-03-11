@@ -6,6 +6,6 @@ namespace BlazorWebShop.Data.Entities
 	{
 		public int Id { get; set; }
 		public int CustomerId { get; set; }
-		public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+		public List<CartItem> CartItems { get; set; } = [];
 	}
 }

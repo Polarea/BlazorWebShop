@@ -6,7 +6,7 @@
 <div class="container">
 	<h1 class="mb-5 fw-bold">Products</h1>
 	<div class = "row row-cols-3">
-	@foreach (var product in shared.Products)
+	@foreach (var product in shared.Products ?? new())
 	{
 		<div class = "col" style="width: 20rem">
 				<div style="width:100%">
