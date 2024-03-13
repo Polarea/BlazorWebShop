@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject SharedService shared
+@inject NavigationManager navigation
 @rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
@@ -10,10 +11,10 @@
 	{
 		<div class = "col" style="width: 20rem">
 				<div style="width:100%">
-					<ProductCard @rendermode="InteractiveServer" Product="product" ShoppingCartId="shared.ShoppingCart.Id" />
+					<ProductCard Product="product" ShoppingCartId="shared.ShoppingCart.Id" />
 				</div>
 				<div class="mb-5 bg-dark rounded-bottom p-1">
-					<BuyButton @rendermode="InteractiveServer" ProductId="product.Id" ShoppingCartId="shared.ShoppingCart.Id" />
+					<BuyButton ProductId="product.Id" ShoppingCartId="shared.ShoppingCart.Id" />
 				</div>
 			</div>
 	}

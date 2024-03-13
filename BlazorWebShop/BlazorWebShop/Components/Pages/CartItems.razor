@@ -16,7 +16,7 @@
 			@foreach (var cartItem in _CartItems)
 			{
 				totalPrice = cartItem.Quantity * cartItem.Product.Price;
-				grandTotal += totalPrice;
+				GrandTotal += totalPrice;
 
 				<tr>
 					<td>@cartItem.Product.Name</td>
@@ -27,7 +27,7 @@
 			}
 			<tr class="fw-bold h5">
 				<td colspan="3" class="text-end">Grand total:</td>
-				<td>@grandTotal</td>
+				<td>@GrandTotal</td>
 			</tr>
 		</tbody>
 	</table>
@@ -36,11 +36,13 @@
 @code {
 
 	int totalPrice = 0;
-	int grandTotal = 0;
 
 	[Parameter]
 	public List<CartItem> _CartItems { get; set; } = [];
 
 	[Parameter]
 	public string Title { get; set; } = string.Empty;
+
+	[Parameter]
+	public int GrandTotal { get; set; }
 }

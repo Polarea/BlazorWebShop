@@ -1,5 +1,6 @@
-﻿@inject SharedProperties shared
-@rendermode InteractiveAuto
+﻿@page "/home"
+@inject SharedProperties shared
+@rendermode InteractiveWebAssembly
 
 <PageTitle>Home</PageTitle>
 <div class="container">
@@ -9,10 +10,10 @@
 	{
 		<div class = "col" style="width: 20rem">
 				<div style="width:100%">
-					<ProductCard @rendermode="InteractiveAuto" Product="product" ShoppingCartId="shared.ShoppingCartId" />
+					<ProductCard Product="product" ShoppingCartId="shared.ShoppingCartId" />
 				</div>
 				<div class="mb-5 bg-dark rounded-bottom p-1">
-					<BuyButton @rendermode="InteractiveAuto" ProductId="product.Id" ShoppingCartId="shared.ShoppingCartId" />
+					<BuyButton ProductId="product.Id" ShoppingCartId="shared.ShoppingCartId" />
 				</div>
 			</div>
 	}
